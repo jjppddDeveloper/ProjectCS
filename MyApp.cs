@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 class TextBoxSample : Form
@@ -35,7 +36,17 @@ class TextBoxSample : Form
 
     void Btn_OnClick(object sender, EventArgs e)
     {
-        MessageBox.Show(txt.Text);
+        MessageBox.Show("Args: " + txt.Text);
+
+        /* バッチ実行 */
+        Process p = new Process();
+        p.StartInfo.FileName = "Called.bat";
+        p.StartInfo.Arguments = txt.Text;
+        // p.StartInfo.Verb = "RunAs";
+        p.Start();
+
+        /* アプリ終了 */
+        Application.Exit();
     }
 
     [STAThread]
